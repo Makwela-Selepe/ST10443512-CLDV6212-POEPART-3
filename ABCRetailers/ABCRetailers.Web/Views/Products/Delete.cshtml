@@ -1,0 +1,52 @@
+﻿@using ABCRetailers.Web.Models.ViewModels
+@model ProductViewModel
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Confirm Deletion</h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="alert alert-warning">
+                        <h4><i class="bi bi-exclamation-circle"></i> Warning!</h4>
+                        <p class="mb-0">You are about to permanently delete this product. This action cannot be undone.</p>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">@Model.ProductName</h5>
+                            <p class="card-text text-muted">@Model.Description</p>
+                            <div class="row text-center">
+                                <div class="col-6">
+                                    <strong>Price:</strong>
+                                    <div class="text-success fw-bold">@Model.Price.ToString("C")</div>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Stock:</strong>
+                                    <div class="fw-bold">@Model.StockAvailable</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="RowKey" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <a class="btn btn-secondary me-md-2" asp-action="Index">
+                                <i class="bi bi-arrow-left"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Confirm Delete
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

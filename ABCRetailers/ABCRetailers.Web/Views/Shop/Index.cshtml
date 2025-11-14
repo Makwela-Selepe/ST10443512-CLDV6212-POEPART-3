@@ -1,0 +1,68 @@
+﻿@using ABCRetailers.Web.Models.ViewModels
+@model IEnumerable<ProductViewModel>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2 class="mb-3">Products</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No products available.</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var p in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    @{
+                        string imageUrl;
+                        if (!string.IsNullOrWhiteSpace(p.ImageUrl))
+                        {
+                            imageUrl = p.ImageUrl!;
+                        }
+                        else if (!string.IsNullOrWhiteSpace(p.ImageBlobName) &&
+                        !string.IsNullOrWhiteSpace(ViewBag.ProductImagesBaseUrl))
+                        {
+                            imageUrl = $"{ViewBag.ProductImagesBaseUrl}/{p.ImageBlobName}";
+                        }
+                        else
+                        {
+                            imageUrl = "https://via.placeholder.com/400x250?text=No+Image";
+                        }
+                    }
+                    <img src="@imageUrl" class="card-img-top" alt="@p.ProductName" />
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@p.ProductName</h5>
+                        <p class="card-text text-muted">@p.Description</p>
+                        <p class="fw-bold mb-2">@p.Price.ToString("C")</p>
+
+                        <form asp-controller="Cart" asp-action="Add" method="post" class="mt-auto">
+                            <input type="hidden" name="productId" value="@p.RowKey" />
+                            <div class="input-group mb-2">
+                                <input type="number" name="quantity" value="1" min="1" class="form-control" />
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-cart"></i> Add to cart
+                                </button>
+                            </div>
+                            @Html.AntiForgeryToken()
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

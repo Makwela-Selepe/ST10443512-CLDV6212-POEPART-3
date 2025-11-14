@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Access denied";
+}
+<h2>Access denied</h2>
+<p>You do not have permission to access this page.</p>
+
+@if (ViewBag.ReturnUrl is string url && !string.IsNullOrEmpty(url))
+{
+    <p>Requested URL: <code>@url</code></p>
+}
+
+<p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to home</a>
+</p>

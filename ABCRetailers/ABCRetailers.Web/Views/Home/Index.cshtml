@@ -1,0 +1,64 @@
+﻿@using ABCRetailers.Web.Models.ViewModels
+@{
+    ViewData["Title"] = "Home";
+    var pc = (int)(ViewBag.ProductCount ?? 0);
+    var cc = (int)(ViewBag.CustomerCount ?? 0);
+    var oc = (int)(ViewBag.OrderCount ?? 0);
+    var featured = (IEnumerable<ProductViewModel>)(ViewBag.Featured ?? Enumerable.Empty<ProductViewModel>());
+    string? baseUrl = ViewBag.ProductImagesBaseUrl;
+}
+<section class="hero py-5">
+    <div class="text-center mb-4">
+        <div class="display-5 fw-bold text-primary">Welcome to ABC Retailers!</div>
+        <p class="lead text-muted">Your one-stop shop for the best deals and latest products</p>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-3">
+            <a class="card-cta cta-blue text-decoration-none" href="/Customers">
+                <div class="d-flex align-items-center gap-3"><i class="bi bi-people fs-2"></i><div><div class="title">View Customers</div><div class="sub">(@cc total)</div></div></div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a class="card-cta cta-green text-decoration-none" href="/Products">
+                <div class="d-flex align-items-center gap-3"><i class="bi bi-box-seam fs-2"></i><div><div class="title">View Products</div><div class="sub">(@pc total)</div></div></div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a class="card-cta cta-amber text-decoration-none" href="/Orders">
+                <div class="d-flex align-items-center gap-3"><i class="bi bi-cart3 fs-2"></i><div><div class="title">View Orders</div><div class="sub">(@oc total)</div></div></div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a class="card-cta cta-cyan text-decoration-none" href="/Uploads/ProofOfPayment">
+                <div class="d-flex align-items-center gap-3"><i class="bi bi-upload fs-2"></i><div><div class="title">Upload Files</div><div class="sub">(Payment proofs)</div></div></div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<h4 class="my-3"><i class="bi bi-star-fill text-warning"></i> Featured Products</h4>
+<div class="row g-3">
+    @{
+        var imageFor = (Func<ProductViewModel, string>)(p =>
+        string.IsNullOrWhiteSpace(p.ImageUrl)
+        ? (string.IsNullOrWhiteSpace(ViewBag.ProductImagesBaseUrl) || string.IsNullOrWhiteSpace(p.ImageBlobName)
+        ? "https://via.placeholder.com/300x200?text=No+Image"
+        : $"{ViewBag.ProductImagesBaseUrl}/{p.ImageBlobName}")
+        : p.ImageUrl);
+    }
+
+    @foreach (var p in featured)
+    {
+        <div class="col-md-3">
+            <div class="card shadow-sm card-hover h-100">
+                <img src="@imageFor(p)" class="card-img-top" style="height:180px;object-fit:cover;">
+                <div class="card-body">
+                    <div class="fw-semibold">@p.ProductName</div>
+                    <div class="text-muted small">@p.Description</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

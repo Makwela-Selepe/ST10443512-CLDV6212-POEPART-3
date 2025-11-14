@@ -1,0 +1,24 @@
+﻿@using ABCRetailers.Web.Models.ViewModels
+@model ProductViewModel
+<div class="container my-4">
+    <h2 class="mb-3"><i class="bi bi-info-circle"></i> Product Details</h2>
+
+    <dl class="row">
+        <dt class="col-sm-3">Product #</dt>
+        <dt class="col-sm-3">Name</dt>
+        <dd class="col-sm-9">@Model.ProductName</dd>
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">@Model.Description</dd>
+        <dt class="col-sm-3">Price</dt>
+        <dd class="col-sm-9">@Model.Price.ToString("C")</dd>
+        <dt class="col-sm-3">Stock</dt>
+        <dd class="col-sm-9">@Model.StockAvailable</dd>
+        <dt class="col-sm-3">Image</dt>
+        <dd class="col-sm-9">
+            <img class="thumb" src="@(Model.ImageBlobName != null ? Url.Content($"/images/{Model.ImageBlobName}") : "https://via.placeholder.com/72")" />
+        </dd>
+    </dl>
+
+    <a class="btn btn-primary" href="/Products/Edit/@Model.RowKey">Edit</a>
+    <a class="btn btn-secondary" href="/Products">Back</a>
+</div>

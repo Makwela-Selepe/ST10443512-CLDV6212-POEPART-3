@@ -1,0 +1,49 @@
+﻿@using ABCRetailers.Web.Models.ViewModels
+@model IEnumerable<ProductViewModel>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container">
+    <h1>Products Management</h1>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <div class="mb-3">
+        <a href="/Products/Create" class="btn btn-primary">Add New Product</a>
+        <a href="/Admin" class="btn btn-secondary">Back to Admin</a>
+    </div>
+
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.ProductName</h5>
+                        <p class="card-text">@product.Description</p>
+                        <p class="card-text">
+                            <strong>Price:</strong> @product.Price.ToString("C")<br>
+                            <strong>Stock:</strong> @product.StockAvailable
+                        </p>
+                        <div class="btn-group">
+                            <a href="/Products/Edit/@product.RowKey" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="/Products/Delete/@product.RowKey" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <h4>No Products Found</h4>
+            <p>No products in the system yet. Click "Add New Product" to get started.</p>
+        </div>
+    }
+</div>

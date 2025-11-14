@@ -1,0 +1,227 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container-fluid">
+    <h1 class="mb-4"><i class="bi bi-speedometer2"></i> Admin Dashboard</h1>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+
+        <!-- Users card -->
+        <div class="col-xl-2 col-md-4 mb-3">
+            <div class="card text-white bg-secondary h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Users</h5>
+                            <h2 class="mb-0">@ViewBag.TotalUsers</h2>
+                            <small>@ViewBag.AdminCount Admins, @ViewBag.CustomerCount Customers</small>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-people fs-1"></i>
+                        </div>
+                    </div>
+                    <a asp-controller="Users" asp-action="Index"
+                       class="btn btn-light btn-sm mt-2 w-100">Manage Users</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customers card -->
+        <div class="col-xl-2 col-md-4 mb-3">
+            <div class="card text-white bg-primary h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Customers</h5>
+                            <h2 class="mb-0">@ViewBag.CustomerCount</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-people fs-1"></i>
+                        </div>
+                    </div>
+                    <a asp-controller="Customers" asp-action="Index"
+                       class="btn btn-light btn-sm mt-2 w-100">Manage Customers</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products card -->
+        <div class="col-xl-2 col-md-4 mb-3">
+            <div class="card text-white bg-success h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Products</h5>
+                            <h2 class="mb-0">@ViewBag.ProductCount</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-box-seam fs-1"></i>
+                        </div>
+                    </div>
+                    <a class="btn btn-light btn-sm mt-2 w-100"
+                       asp-controller="Products" asp-action="Index">
+                        Manage Products
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total orders card -->
+        <div class="col-xl-2 col-md-4 mb-3">
+            <div class="card text-white bg-warning h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Total Orders</h5>
+                            <h2 class="mb-0">@ViewBag.TotalOrders</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-cart3 fs-1"></i>
+                        </div>
+                    </div>
+                    <a asp-controller="Admin" asp-action="Orders"
+                       class="btn btn-light btn-sm mt-2 w-100">Manage Orders</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending orders card -->
+        <div class="col-xl-2 col-md-4 mb-3">
+            <div class="card text-white bg-info h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Pending Orders</h5>
+                            <h2 class="mb-0">@ViewBag.PendingOrders</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-clock fs-1"></i>
+                        </div>
+                    </div>
+                    <a asp-controller="Admin" asp-action="Orders"
+                       class="btn btn-light btn-sm mt-2 w-100">Review Orders</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admins card -->
+        <div class="col-xl-2 col-md-4 mb-3">
+            <div class="card text-white bg-secondary h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Admins</h5>
+                            <h2 class="mb-0">@ViewBag.AdminCount</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-person-gear fs-1"></i>
+                        </div>
+                    </div>
+                    <a asp-controller="Users" asp-action="Index"
+                       class="btn btn-light btn-sm mt-2 w-100">Manage Admins</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment proofs card -->
+        <div class="col-xl-2 col-md-4 mb-3">
+            <div class="card text-white bg-dark h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Payment Proofs</h5>
+                            <h2 class="mb-0">@ViewBag.PaymentProofsCount</h2>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="bi bi-receipt fs-1"></i>
+                        </div>
+                    </div>
+                    <a asp-controller="Uploads" asp-action="AdminList"
+                       class="btn btn-light btn-sm mt-2 w-100">View Proofs</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Quick Actions + Recent Activity -->
+    <div class="row">
+        <!-- Quick Actions -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-lightning"></i> Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-outline-primary"
+                           asp-controller="Products" asp-action="Create">
+                            <i class="bi bi-plus-circle"></i> Add New Product
+                        </a>
+                        <a class="btn btn-outline-success"
+                           asp-controller="Admin" asp-action="Orders">
+                            <i class="bi bi-list-check"></i> Review All Orders
+                        </a>
+                        <a class="btn btn-outline-warning"
+                           asp-controller="Customers" asp-action="Index">
+                            <i class="bi bi-people"></i> Manage Customers
+                        </a>
+                        <a class="btn btn-outline-info"
+                           asp-controller="Users" asp-action="Index">
+                            <i class="bi bi-person-gear"></i> Manage Admin Users
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="bi bi-graph-up"></i> Recent Activity</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="bi bi-cart-plus text-success"></i>
+                                <span>New orders pending review</span>
+                            </div>
+                            <a asp-controller="Admin" asp-action="Orders"
+                               class="badge bg-warning rounded-pill text-decoration-none">
+                                @ViewBag.PendingOrders
+                            </a>
+                        </div>
+
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="bi bi-upload text-primary"></i>
+                                <span>Payment proofs uploaded</span>
+                            </div>
+                            <a asp-controller="Uploads" asp-action="AdminList"
+                               class="badge bg-info rounded-pill text-decoration-none">
+                                @ViewBag.PaymentProofsCount
+                            </a>
+                        </div>
+
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <i class="bi bi-people text-secondary"></i>
+                                <span>Total customers registered</span>
+                            </div>
+                            <a asp-controller="Customers" asp-action="Index"
+                               class="badge bg-secondary rounded-pill text-decoration-none">
+                                @ViewBag.CustomerCount
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

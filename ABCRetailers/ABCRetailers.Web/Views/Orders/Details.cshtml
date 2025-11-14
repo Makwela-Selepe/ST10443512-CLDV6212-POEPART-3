@@ -1,0 +1,38 @@
+﻿@model ABCRetailers.Web.Models.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Order details";
+}
+
+<h1>Order details</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.CustomerName)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.CustomerName)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.ProductName)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.ProductName)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Quantity)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Quantity)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.TotalAmount)</dt>
+        <dd class="col-sm-10">@Model.TotalAmount.ToString("C")</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Status)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Status)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.CreatedAt)</dt>
+        <dd class="col-sm-10">@Model.CreatedAt.ToLocalTime()</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.ShippedAt)</dt>
+        <dd class="col-sm-10">
+            @(Model.ShippedAt.HasValue? Model.ShippedAt.Value.ToLocalTime().ToString() : "-")
+        </dd>
+    </dl>
+</div>
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Back to list</a>
+</p>

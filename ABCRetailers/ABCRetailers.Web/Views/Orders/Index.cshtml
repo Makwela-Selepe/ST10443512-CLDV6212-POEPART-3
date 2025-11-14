@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ABCRetailers.Web.Models.ViewModels.OrderViewModel>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>Orders</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.First().CustomerName)</th>
+            <th>@Html.DisplayNameFor(m => m.First().ProductName)</th>
+            <th>@Html.DisplayNameFor(m => m.First().Quantity)</th>
+            <th>@Html.DisplayNameFor(m => m.First().TotalAmount)</th>
+            <th>@Html.DisplayNameFor(m => m.First().Status)</th>
+            <th>@Html.DisplayNameFor(m => m.First().CreatedAt)</th>
+            <th>@Html.DisplayNameFor(m => m.First().ShippedAt)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CustomerName</td>
+                <td>@item.ProductName</td>
+                <td>@item.Quantity</td>
+                <td>@item.TotalAmount.ToString("C")</td>
+                <td>@item.Status</td>
+                <td>@item.CreatedAt.ToLocalTime()</td>
+                <td>@(item.ShippedAt.HasValue? item.ShippedAt.Value.ToLocalTime().ToString() : "-")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+
+                    <!-- delete only allowed for shipped orders; controller checks again -->
+                    <form asp-action="Delete" asp-route-id="@item.Id"
+                          method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Delete this order? Only shipped orders are allowed.');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

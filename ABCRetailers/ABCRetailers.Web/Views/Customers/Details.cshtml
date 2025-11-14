@@ -1,0 +1,28 @@
+﻿@model ABCRetailers.Web.Models.ViewModels.CustomerViewModel
+
+@{
+    ViewData["Title"] = "Customer details";
+}
+
+<h1>Customer details</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Name)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Name)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Email)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Email)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Phone)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.Phone)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(m => m.DeliveryAddress)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(m => m.DeliveryAddress)</dd>
+    </dl>
+</div>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to list</a>
+</p>

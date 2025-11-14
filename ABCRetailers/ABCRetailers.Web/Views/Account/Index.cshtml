@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <h1 class="text-center mb-4">Admin Dashboard</h1>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Customers</h5>
+                    <p class="card-text">Manage customer accounts</p>
+                    <a href="/Customers" class="btn btn-light">Manage</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Products</h5>
+                    <p class="card-text">Manage product catalog</p>
+                    <a href="/Products" class="btn btn-light">Manage</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">Orders</h5>
+                    <p class="card-text">View and manage orders</p>
+                    <a href="/Orders" class="btn btn-light">Manage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <p>Welcome, Admin! You are successfully logged in.</p>
+        <form method="post" action="/Account/Logout" class="d-inline">
+            <button type="submit" class="btn btn-outline-danger">Logout</button>
+        </form>
+    </div>
+</div>

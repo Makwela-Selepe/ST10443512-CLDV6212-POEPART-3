@@ -1,0 +1,56 @@
+﻿@using ABCRetailers.Web.Models.ViewModels
+@model CartViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h2 class="mb-3">Checkout</h2>
+
+@if (!Model.Items.Any())
+{
+    <div class="alert alert-info">
+        Your cart is empty.
+    </div>
+    <a class="btn btn-primary" asp-controller="Shop" asp-action="Index">Go to products</a>
+}
+else
+{
+    <p class="text-muted">Confirm your order:</p>
+
+    <table class="table table-striped table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th class="text-end">Unit price</th>
+                <th class="text-end">Quantity</th>
+                <th class="text-end">Line total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td class="text-end">@item.UnitPrice.ToString("C")</td>
+                    <td class="text-end">@item.Quantity</td>
+                    <td class="text-end">@item.LineTotal.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="fw-bold">
+                <td colspan="3" class="text-end">Total:</td>
+                <td class="text-end">@Model.Total.ToString("C")</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <form asp-action="CheckoutConfirm" method="post">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-success">
+            Place order
+        </button>
+        <a class="btn btn-secondary ms-2" asp-action="Index">Back to cart</a>
+    </form>
+}

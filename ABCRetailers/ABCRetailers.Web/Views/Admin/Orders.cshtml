@@ -1,0 +1,95 @@
+﻿@using ABCRetailers.Web.Models.ViewModels
+@model IEnumerable<SqlCartOrderViewModel>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h2>Orders</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<table class="table table-striped table-hover align-middle">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th class="text-end">Qty</th>
+            <th class="text-end">Total</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Shipped</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var o in Model)
+        {
+            <tr>
+                <td>@o.Id</td>
+                <td>@o.CustomerName</td>
+                <td>@o.ProductName</td>
+                <td class="text-end">@o.Quantity</td>
+                <td class="text-end">@o.TotalAmount.ToString("C")</td>
+                <td>@o.Status</td>
+                <td>@o.CreatedAt.ToLocalTime()</td>
+                <td>@(o.ShippedAt?.ToLocalTime().ToString("g") ?? "-")</td>
+                <td class="text-end">
+                    <!-- Processed -->
+                    <form asp-action="UpdateOrderStatus" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@o.Id" />
+                        <input type="hidden" name="status" value="Processed" />
+                        <button type="submit"
+                                class="btn btn-sm btn-outline-secondary"
+                                disabled="@(o.Status == "Processed" || o.Status == "Shipped" || o.Status == "Delivered")">
+                            Processed
+                        </button>
+                    </form>
+
+                    <!-- Shipped -->
+                    <form asp-action="UpdateOrderStatus" method="post" class="d-inline ms-1">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@o.Id" />
+                        <input type="hidden" name="status" value="Shipped" />
+                        <button type="submit"
+                                class="btn btn-sm btn-outline-primary"
+                                disabled="@(o.Status == "Shipped" || o.Status == "Delivered")">
+                            Shipped
+                        </button>
+                    </form>
+
+                    <!-- Delivered -->
+                    <form asp-action="UpdateOrderStatus" method="post" class="d-inline ms-1">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@o.Id" />
+                        <input type="hidden" name="status" value="Delivered" />
+                        <button type="submit"
+                                class="btn btn-sm btn-outline-success"
+                                disabled="@(o.Status == "Delivered")">
+                            Delivered
+                        </button>
+                    </form>
+
+                    <!-- Delete -->
+                    <form asp-action="DeleteOrder" method="post" class="d-inline ms-2">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@o.Id" />
+                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                onclick="return confirm('Delete this order?');">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
